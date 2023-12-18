@@ -26,17 +26,16 @@ export const gameSlice=createSlice({
             state.cards=shuffledCards;
             state.turns=0;
         },
-        // handleChoice:{
-        //     reducer:(state,action)=>{
-        //             console.log("aaa")
-        //             console.log(action.payload)
-        //             state.choiceOne ? state.choiceTwo=action.payload : state.choiceOne=action.payload
-        //     },
-        //     prepare:(card)=>{
-        //         return {payload:{card}}
-        //     }
+        handleChoice:{
+            reducer:(state,action)=>{
+                    console.log("aaa",action.payload)
+                    state.choiceOne ? state.choiceTwo=action.payload : state.choiceOne=action.payload
+            },
+            prepare:(card)=>{
+                return {payload:card}
+            }
             
-        // },
+        },
         resetTurn:(state,action)=>{
             state.choiceOne=null;
             state.choiceTwo=null;
@@ -44,19 +43,14 @@ export const gameSlice=createSlice({
             state.disabled=false;   
         },
         matchCards:(state,action)=>{
-            console.log("match")
-            const newCards=state.cards.map(card=>{
-                console.log(state.choiceOne)
-                if(card.src === state.choiceOne.card.src){
-                    console.log("eşleşti")
-                    return {...card,matched:true}
-                }
-                else{
-                    console.log(card)
+            console.log("eşleşti slice")
+            const newCards= state.cards.map((card)=>{
+                if(card.src === state.choiceOne.src){
+                    return{...card,matched:true}
+                }else{
                     return card
                 }
             })
-            console.log("newCards:",newCards)
             state.cards=newCards
         },
         handleClick:{
@@ -80,7 +74,7 @@ export const gameSlice=createSlice({
     }
 
 })
-export const handleChoice=(state,card)=>{state.choiceOne ? state.choiceTwo=card : state.choiceOne=card }
 
-export const {shuffleCard,resetTurn,matchCards,handleClick,setDisabledTrue,setDisabledFalse}=gameSlice.actions
+
+export const {shuffleCard,resetTurn,matchCards,handleClick,setDisabledTrue,setDisabledFalse,handleChoice}=gameSlice.actions
 export default gameSlice.reducer
