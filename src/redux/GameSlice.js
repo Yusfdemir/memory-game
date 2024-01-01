@@ -15,38 +15,43 @@ export const gameSlice=createSlice({
         turns:0,
         choiceOne:null,
         choiceTwo:null,
-        disabled:false
+        disabled:false,
+        point:0,
+        highScore: localStorage.getItem("h-score") || 0,
     },
     reducers:{
         shuffleCard:(state,action)=>{
             const shuffledCards=[...state.cardImages, ...state.cardImages].sort(()=>Math.random() - 0.5)
             .map(card=>({...card, id:nanoid()}))
+            if(state.point > state.highScore){
+                localStorage.setItem("h-score",state.point)
+            }
             state.choiceOne=null;
             state.choiceTwo=null;
             state.cards=shuffledCards;
+            state.highScore=localStorage.getItem("h-score")
             state.turns=0;
+            state.point=0 
         },
         handleChoice:{
             reducer:(state,action)=>{
-                    console.log("aaa",action.payload)
                     state.choiceOne ? state.choiceTwo=action.payload : state.choiceOne=action.payload
             },
             prepare:(card)=>{
                 return {payload:card}
-            }
-            
+            }   
         },
         resetTurn:(state,action)=>{
             state.choiceOne=null;
             state.choiceTwo=null;
             state.turns+=1;
-            state.disabled=false;   
+            state.disabled=false; 
+ 
         },
         matchCards:(state,action)=>{
-            console.log("eşleşti slice")
             const newCards= state.cards.map((card)=>{
                 if(card.src === state.choiceOne.src){
-                    return{...card,matched:true}
+                    return{...card,matched:true}   
                 }else{
                     return card
                 }
@@ -71,10 +76,17 @@ export const gameSlice=createSlice({
         setDisabledFalse:(state)=>{
             state.disabled=false
         },
+        increasePoint:(state)=>{
+            state.point+=50
+           
+        },
+        decreasePoint:(state)=>{
+            state.point-=10
+        }
     }
 
 })
 
 
-export const {shuffleCard,resetTurn,matchCards,handleClick,setDisabledTrue,setDisabledFalse,handleChoice}=gameSlice.actions
+export const {shuffleCard,resetTurn,matchCards,handleClick,setDisabledTrue,setDisabledFalse,handleChoice,increasePoint,decreasePoint}=gameSlice.actions
 export default gameSlice.reducer

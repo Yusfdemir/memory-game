@@ -7,9 +7,6 @@ import { handleChoice } from '../redux/GameSlice'
 
 const CardItem = ({card,flipped,disabled}) => {
     const dispatch=useDispatch()
-    //const{disabled}=useSelector(state=>state.memoryGame)
-    //console.log(flipped)
-    //console.log(card,flipped)
     const handleClick=()=>{
         if(!disabled){
            dispatch(handleChoice(card))
@@ -24,11 +21,6 @@ const CardItem = ({card,flipped,disabled}) => {
                 src="/img/cover.png" 
                 className='back' 
                 onClick={handleClick} 
-                // onClick={()=>{
-                //     if(!disabled){
-                //         dispatch(handleClick({card}))
-                //     }
-                // }}
                 alt="card-back"
             />
         </div>
