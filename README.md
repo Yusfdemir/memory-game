@@ -1,8 +1,14 @@
-# React + Vite
+# Memory Game
+[Click here](https://memory-game-psi-red.vercel.app/) to see the memory game demo  <br/>
+## Used technologies
+<ol>
+    <li><a href="https://react.dev/">React</a></li>
+    <li><a href="https://redux.js.org/">Redux</a></li>
+</ol>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### How to Install
+* Clone repository 
+* Open new terminal and write `cd memory-game` to go to main directory
+* `npm install ` command to install dependencies for application
+* `npm run dev` command to run backend
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
